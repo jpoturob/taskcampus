@@ -14,8 +14,12 @@ body {
   color: #172033;
 }
 
-button {
+button,
+input {
   font: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
@@ -26,6 +30,7 @@ button {
 
 .sidebar {
   width: 250px;
+  flex-shrink: 0;
   padding: 32px 22px;
   background: #151c31;
   color: white;
@@ -55,6 +60,7 @@ button {
   background: transparent;
   color: #c7cee0;
   text-align: left;
+  transition: background 0.2s ease;
 }
 
 .nav-button:hover,
@@ -87,6 +93,7 @@ button {
 
 .topbar h2 {
   margin: 0;
+  color: #172033;
   font-size: 29px;
 }
 
@@ -96,6 +103,7 @@ button {
   background: #e4e9fb;
   color: #4257a3;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .welcome-card {
@@ -109,6 +117,7 @@ button {
 .welcome-card h3 {
   max-width: 560px;
   margin: 12px 0;
+  color: #172033;
   font-size: 32px;
   line-height: 1.25;
 }
@@ -126,6 +135,7 @@ button {
   border-radius: 9px;
   background: #5268d9;
   color: white;
+  transition: background 0.2s ease;
 }
 
 .primary-button:hover {
@@ -136,16 +146,72 @@ button {
   padding: 30px;
   border-radius: 16px;
   background: white;
+  box-shadow: 0 8px 30px #1c2a4a0a;
 }
 
 .content-card h3 {
   margin-top: 0;
+  color: #172033;
 }
 
 .content-card p {
   color: #68738a;
 }
 
+/* Lista de tareas */
+.task-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border: 1px solid #e6eaf2;
+  border-radius: 12px;
+  background: #fff;
+  text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item:hover {
+  border-color: #cbd5f5;
+  box-shadow: 0 4px 12px #1c2a4a0a;
+}
+
+.task-item h4 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.task-status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.task-status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.task-status.pending {
+  background: #fff1d6;
+  color: #925d00;
+}
+
+.error-message {
+  color: #c62828;
+}
+
+/* Diseño adaptable */
 @media (max-width: 700px) {
   .app {
     flex-direction: column;
@@ -185,4 +251,49 @@ button {
   .welcome-card h3 {
     font-size: 26px;
   }
+
+  .content-card {
+    padding: 20px;
+  }
+
+  .task-item {
+    padding: 14px;
+  }
 }
+
+
+/* Tarjetas del resumen */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin-top: 24px;
+}
+
+.summary-card {
+  padding: 22px;
+  border: 1px solid #e6eaf2;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 30px #1c2a4a0a;
+}
+
+.summary-card p {
+  margin: 0 0 12px;
+  color: #68738a;
+  font-size: 14px;
+}
+
+.summary-card h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 30px;
+}
+
+@media (max-width: 700px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
