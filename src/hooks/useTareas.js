@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react'
-
-const API_URL = 'https://jsonplaceholder.typicode.com/todos'
+import { obtenerTareas } from '../services/tareasService'
 
 export function useTareas() {
   const [tareas, setTareas] = useState([])
@@ -9,27 +8,15 @@ export function useTareas() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const cargarTareas = async () => {
+    async function cargarTareas() {
       try {
         setCargando(true)
         setError('')
 
-        const respuesta = await fetch(`${API_URL}?_limit=10`)
-
-        if (!respuesta.ok) {
-          throw new Error('Error al cargar las tareas')
-        }
-
-        const datos = await respuesta.json()
-
-        const tareasAdaptadas = datos.map((tarea) => ({
-          id: tarea.id,
-          titulo: tarea.title,
-          completada: tarea.completed,
-        }))
-
-        setTareas(tareasAdaptadas)
+        const datos = await obtenerTareas()
+        setTareas(datos)
       } catch (err) {
+        console.error('Error al cargar tareas:', err)
         setError('No fue posible cargar las tareas. Intenta nuevamente.')
       } finally {
         setCargando(false)
@@ -41,3 +28,4 @@ export function useTareas() {
 
   return { tareas, setTareas, cargando, error }
 }
+

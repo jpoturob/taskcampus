@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import { useTareas } from './hooks/useTareas'
+import { crearTarea } from './services/tareasService'
 import Header from './components/Header'
 import TaskList from './components/TaskList'
 import TaskSummary from './components/TaskSummary'
@@ -8,6 +9,10 @@ import './App.css'
 
 function App() {
   const [vista, setVista] = useState('resumen')
+  const [nuevoTitulo, setNuevoTitulo] = useState('')
+  const [guardando, setGuardando] = useState(false)
+  const [errorFormulario, setErrorFormulario] = useState('')
+  const [mensajeExito, setMensajeExito] = useState('')
 
   const {
     tareas,
@@ -16,11 +21,48 @@ function App() {
     error,
   } = useTareas()
 
+  async function manejarCrearTarea(evento) {
+    evento.preventDefault()
+
+    const titulo = nuevoTitulo.trim()
+
+    if (!titulo) {
+      setErrorFormulario('Escribe el título de la tarea.')
+      setMensajeExito('')
+      return
+    }
+
+    try {
+      setGuardando(true)
+      setErrorFormulario('')
+      setMensajeExito('')
+
+      const tareaCreada = await crearTarea(titulo)
+
+      setTareas((tareasActuales) => [
+        ...tareasActuales,
+        tareaCreada,
+      ])
+
+      setNuevoTitulo('')
+      setMensajeExito('¡Tarea creada correctamente!')
+    } catch (err) {
+      console.error('Error al crear tarea:', err)
+      setErrorFormulario(
+        'No se pudo crear la tarea. Intenta nuevamente.'
+      )
+    } finally {
+      setGuardando(false)
+    }
+  }
+
   return (
     <div className="app">
       <aside className="sidebar">
         <h1 className="logo">TaskCampus</h1>
-        <p className="subtitle">Organiza tu vida académica</p>
+        <p className="subtitle">
+          Organiza tu vida académica
+        </p>
 
         <nav>
           <button
@@ -72,7 +114,9 @@ function App() {
         {vista === 'resumen' && (
           <>
             <section className="welcome-card">
-              <p className="eyebrow">BIENVENIDO A TASKCAMPUS</p>
+              <p className="eyebrow">
+                BIENVENIDO A TASKCAMPUS
+              </p>
 
               <h3>
                 Todo lo que tienes que hacer, en un solo lugar.
@@ -112,7 +156,10 @@ function App() {
             )}
 
             {!cargando && !error && (
-              <TaskList tareas={tareas} />
+              <TaskList
+                tareas={tareas}
+                setTareas={setTareas}
+              />
             )}
           </section>
         )}
@@ -121,9 +168,49 @@ function App() {
           <section className="content-card">
             <h3>Nueva tarea</h3>
             <p>
-              En el siguiente paso construiremos el formulario
-              para crear tareas.
+              Ingresa el título de tu nueva tarea académica.
             </p>
+
+            <form
+              onSubmit={manejarCrearTarea}
+              className="task-form"
+            >
+              <label htmlFor="tituloTarea">
+                Título de la tarea
+              </label>
+
+              <input
+                id="tituloTarea"
+                type="text"
+                value={nuevoTitulo}
+                onChange={(evento) =>
+                  setNuevoTitulo(evento.target.value)
+                }
+                placeholder="Ej. Estudiar para la prueba"
+                maxLength={120}
+                disabled={guardando}
+              />
+
+              {errorFormulario && (
+                <p className="error-message">
+                  {errorFormulario}
+                </p>
+              )}
+
+              {mensajeExito && (
+                <p className="success-message">
+                  {mensajeExito}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="primary-button"
+                disabled={guardando}
+              >
+                {guardando ? 'Guardando...' : 'Crear tarea'}
+              </button>
+            </form>
           </section>
         )}
       </main>
