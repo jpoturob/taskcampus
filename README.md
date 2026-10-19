@@ -20,8 +20,6 @@ TaskCampus es una aplicación web desarrollada con React y Vite que permite orga
 - JavaScript
 - CSS
 - Vite
-- JSONPlaceholder API
-
 ## Instalación y ejecución
 
 **1. Clonar el repositorio**
