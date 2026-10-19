@@ -1,16 +1,78 @@
-# React + Vite
+# TaskCampus
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TaskCampus es una aplicación web desarrollada con React y Vite que permite organizar tareas académicas de forma sencilla.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Visualizar tareas desde una API.
+- Crear nuevas tareas.
+- Editar títulos de tareas.
+- Marcar tareas como completadas o pendientes.
+- Eliminar tareas con confirmación.
+- Buscar tareas por título.
+- Filtrar tareas por estado.
+- Visualizar un resumen de tareas totales, pendientes y completadas.
+- Navegar entre las vistas de resumen, tareas y creación de tareas.
 
-## React Compiler
+## Tecnologías utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript
+- CSS
+- Vite
+- JSONPlaceholder API
 
-## Expanding the ESLint configuration
+## Instalación y ejecución
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**1. Clonar el repositorio**
+
+```bash
+git clone https://github.com/jpoturob/taskcampus.git
+```
+
+**2. Entrar en la carpeta del proyecto**
+
+```bash
+cd taskcampus
+```
+
+**3. Instalar las dependencias**
+
+```bash
+npm install
+```
+
+**4. Ejecutar la aplicación**
+
+```bash
+npm run dev
+```
+
+Luego, abrir en el navegador la dirección local que muestra la terminal.
+
+## Estructura del proyecto
+
+- `src/components/`: componentes de la interfaz.
+- `src/hooks/`: lógica reutilizable para gestionar tareas.
+- `src/services/`: funciones para comunicarse con la API.
+- `src/App.jsx`: componente principal de la aplicación.
+- `src/App.css`: estilos de la aplicación.
+
+## API y persistencia
+
+La aplicación utiliza JSONPlaceholder para cargar y gestionar tareas mediante solicitudes HTTP.
+
+Esta API simula las operaciones de creación, edición y eliminación. Por ello, los cambios realizados no se guardan permanentemente y las tareas pueden volver a su estado original al recargar la página.
+
+## Prueba de compilación
+
+Para comprobar que el proyecto compile correctamente, ejecutar:
+
+```bash
+npm run build
+```
+
+## Repositorio
+
+https://github.com/jpoturob/taskcampus.git
+
